@@ -3,6 +3,7 @@
 
 
 import math
+from unicodedata import decimal
 
 def square_root(a: float) -> float:
     return math.sqrt(a)
@@ -23,10 +24,12 @@ def to_radians(angle_degs: float, angle_mins: float, angle_secs: float) -> float
 
 
 def to_degrees(angle_rads: float) -> tuple:
+
     decimal_degs = angle_rads/(math.pi/180)
-    angle_mins = (decimal_degs - int(decimal_degs)) * 60
-    angle_secs =  (angle_mins - int(angle_mins)) * 60
-    return int(decimal_degs), int(angle_mins), int(angle_secs)
+    angle_min = (decimal_degs - math.floor(decimal_degs)) * 60
+    angle_secs = (angle_mins - math.floor(angle_mins)) * 60
+
+    return math.floor(decimal_degs), math.floor(angle_min), angle_secs
 
 
 def to_celsius(temperature: float) -> float:
